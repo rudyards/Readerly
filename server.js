@@ -3,6 +3,45 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var User = require('../models/user');
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    function(accessToken, refreshToken, profile, cb) {
+        User.findOne({ 'googleId': profile.id }, function(err, user) {
+          if (err) return cb(err);
+          if (user) {
+            return cb(null, user);
+          } else {
+            var newUser = new User({
+              username: profile.displayName,
+              googleId: profile.id
+            });
+            newUser.save(function(err) {
+              if (err) return cb(err);
+              return cb(null, newUser);
+            });
+          }
+        });  
+    }}));
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+require('./config/database');
+require('./config/passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,6 +56,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'GoReaderly!',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
