@@ -10,3 +10,9 @@ a {
 #title {
     margin-top: 30px;
 }
+
+#map {
+    margin: auto;
+    align: middle;
+    width: 600px;
+}
