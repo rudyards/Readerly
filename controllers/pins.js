@@ -1,4 +1,8 @@
-var Pin = require('../models/pin')
+var Pin = require('../models/pin');
+var request = require('request');
+
+const googleRoot = 'https://maps.googleapis.com/maps/api/place/'
+const goodreadsRoot = 'https://www.goodreads.com/search/index.xml?'
 
 
 module.exports = {
@@ -18,9 +22,16 @@ function newPin(req, res) {
 }
 
 function create(req, res){
-    var pin = new Pin(req.body);
-    pin.save(function(err){
-        if (err) return res.render('pins/new');;
-        res.redirect('/pins')
-    })
+    console.log("Request: "+goodreadsRoot + 'key=' + process.env.GOODREADS_API + '&q=' + req.body.book);
+    request(goodreadsRoot + 'key' + process.env.GOODREADS_API + '&q' + req.body.book, 
+        function(err, response, body){
+            console.log(body);
+        });
+
+    // var pin = new Pin(req.body);
+    // pin.save(function(err){
+    //     if (err) return res.render('pins/new');;
+    //     res.redirect('/pins')
+    // })
+    res.redirect('/pins')
 }
