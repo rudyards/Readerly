@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+<table id="pinslist">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <% pins.forEach(function(p, idx) {%>
+    <tr>
+        <td><%= p.book %></td>
+        <td><%= p.location %></td>
+    </tr>
+
+
+    <% }); %>
+</table>
+
+<%- include('../partials/footer') %>
