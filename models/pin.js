@@ -3,8 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var pinSchema = new Schema({
-    book: String,
-    location: String
+    book: Object,
+    bookName: String,
+    location: Object,
+    locationName: String
 })
 
 
