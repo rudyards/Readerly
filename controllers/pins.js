@@ -22,8 +22,7 @@ function newPin(req, res) {
 }
 
 function create(req, res){
-    console.log("Request: "+goodreadsRoot + 'key=' + process.env.GOODREADS_API + '&q=' + req.body.book);
-    request(goodreadsRoot + 'key' + process.env.GOODREADS_API + '&q' + req.body.book, 
+    request(goodreadsRoot + 'key=' + process.env.GOODREADS_API + '&q=' + req.body.book, 
         function(err, response, body){
             console.log(body);
         });
