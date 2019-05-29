@@ -13,12 +13,12 @@ module.exports = {
 
 function index(req, res){
     Pin.find({}, function(err, pins){
-        res.render('pins/index', {title: 'Pins List', pins})
+        res.render('pins/index', {title: 'Pins List', pins, user: req.user})
     })
 }
 
 function newPin(req, res) {
-  res.render('pins/new', {title: 'Add Pin'});
+  res.render('pins/new', {title: 'Add Pin', user: req.user});
 }
 
 function create(req, res){
@@ -47,8 +47,8 @@ function create(req, res){
                     pin.bookName = bookName;
                     pin.locationName = locationName;
                     pin.save(function(err){
-                        if (err) return res.render('pins/new');
-                        res.redirect('/pins');
+                        if (err) return res.render('pins/new', {user: req.user});
+                        res.redirect('/pins', {user: req.user});
                     })
                 })
         });
