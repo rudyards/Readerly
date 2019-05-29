@@ -36,15 +36,13 @@ function create(req, res){
     var locationName;
     request(booksRoot + req.body.book, 
         function(err, response, body){
-            // console.log(body);
             book = JSON.parse(body);
-            bookName = book.items[0].volumeInfo.title
+            bookName = book.items[0].volumeInfo.title;
         });
     request(mapsRoot + process.env.GOOGLE_API_KEY + "&input="+req.body.location+"&inputtype=textquery",
         function(err, response, body){
             var placeId = JSON.parse(body);
             placeId = placeId.candidates[0].place_id;
-            // console.log(locationRoot+process.env.GOOGLE_API_KEY+'&placeid'+placeId)
             request(locationRoot+process.env.GOOGLE_API_KEY+'&placeid='+placeId,
                 function(err, response, thisbody){
                     location = JSON.parse(thisbody);
@@ -56,7 +54,7 @@ function create(req, res){
                     pin.locationName = locationName;
                     pin.save(function(err){
                         if (err) return res.render('pins/new', {user: req.user});
-                        res.redirect('/pins', {user: req.user});
+                        res.status(301).redirect('/pins');
                     })
                 })
         });
