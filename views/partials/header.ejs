@@ -11,15 +11,21 @@
 <body>
   <main>
     <nav id="navBar" class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top">
-      <div class="navbar-nav">
+        <a class="navbar-brand" href="/">Home</a>
+        <ul class="navbar-nav mr-auto">
         <% if (user){ %>
-        <a class="nav-link nav-item" href="/logout">Log Out</a>
+        <li class="nav-item"><a class="nav-link nav-item" href="/pins/">My Pins</a></li>
+        <li class="nav-item"><a class="nav-link nav-item" href="/pins/new">Add Pin</a></li>
+        </ul>
         <% }else{ %>
+        </ul>
+        <span class="navbar-text">
         <a class="nav-link nav-item" href="/auth/google">Log In With Google</a>
+        </span>
         <% } if (user){ %>
-        <a class="nav-link nav-item" href="/pins/">My Pins</a>
-        <a class="nav-link nav-item" href="/pins/new">Add Pin</a>
+        <span class="navbar-text">
+        <a class="nav-link nav-item" href="/logout">Log Out</a>
+        </span>
         <% } %>
-      </div>
     </nav>
     <h1 id="title"><%= title %></h1>
