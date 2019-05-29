@@ -12,13 +12,21 @@ module.exports = {
 }
 
 function index(req, res){
-    Pin.find({}, function(err, pins){
-        res.render('pins/index', {title: 'Pins List', pins, user: req.user})
-    })
+    if (req.user){
+        Pin.find({}, function(err, pins){
+            res.render('pins/index', {title: 'Pins List', pins, user: req.user})
+        })
+    } else {
+        res.redirect('/');
+    }
 }
 
 function newPin(req, res) {
-  res.render('pins/new', {title: 'Add Pin', user: req.user});
+  if (req.user){
+    res.render('pins/new', {title: 'Add Pin', user: req.user});
+  } else {
+    res.redirect('/');
+  }
 }
 
 function create(req, res){
