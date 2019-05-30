@@ -52,8 +52,10 @@ function create(req, res){
                     pin.location = location;
                     pin.bookName = bookName;
                     pin.locationName = locationName;
+                    pin.user = req.user;
                     pin.save(function(err){
                         if (err) return res.render('pins/new', {user: req.user});
+                        req.user.pins.push(pin);
                         res.status(301).redirect('/pins');
                     })
                 })

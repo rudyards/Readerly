@@ -2,8 +2,22 @@
     <p>Welcome to <%= title %></p>
 
     <div id="map">
+    <% if (user) { %>
+        <% if (latLong) { %>
+            <iframe width="600" height="450" frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/view?zoom=17&center=<%= latLong.lat%>,<%= latLong.lng%>&key=AIzaSyAC4HSnQsWoGs2e8MMpNkb4lWAU5qSfTWE" allowfullscreen></iframe>
+        <% } else { %>
+        
+        <iframe width="600" height="450" frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/view?zoom=17&center=34.0130,-118.4952&key=AIzaSyAC4HSnQsWoGs2e8MMpNkb4lWAU5qSfTWE" allowfullscreen></iframe>
+        
+        <% } %>
+    <% } else { %>
+    
     <iframe width="600" height="450" frameborder="0" style="border:0"
     src="https://www.google.com/maps/embed/v1/view?zoom=17&center=34.0130,-118.4952&key=AIzaSyAC4HSnQsWoGs2e8MMpNkb4lWAU5qSfTWE" allowfullscreen></iframe>
+    
+    <% } %>
     </div>
 
     <p>
