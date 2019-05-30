@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
     Pin.findOne({user: req.user.id}).sort({_id: -1}).exec(function (err, pin){
       if (pin){
         latLong = pin.location.result.geometry.location;
-        console.log(latLong);
         res.render('index', { title: 'Readerly', user: req.user, latLong});
       } else {
         res.render('index', { title: 'Readerly', user: req.user, latLong});

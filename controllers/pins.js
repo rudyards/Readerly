@@ -13,7 +13,7 @@ module.exports = {
 
 function index(req, res){
     if (req.user){
-        Pin.find({}, function(err, pins){
+        Pin.find({user: req.user.id}, function(err, pins){
             res.render('pins/index', {title: 'Pins List', pins, user: req.user})
         })
     } else {
@@ -41,7 +41,6 @@ function create(req, res){
             request(mapsRoot + process.env.GOOGLE_API_KEY + "&input="+req.body.location+"&inputtype=textquery",
                 function(err, response, body){
                     var placeId = JSON.parse(body);
-                    console.log(placeId.status)
                     if (placeId.status != 'ZERO_RESULTS'){
                         placeId = placeId.candidates[0].place_id;
                         } else {
