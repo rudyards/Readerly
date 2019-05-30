@@ -5,12 +5,14 @@
         <tr>
             <th>Book</th>
             <th>Location</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <% pins.forEach(function(p, idx) {%>
     <tr>
         <td><%= p.bookName %></td>
         <td><%= p.locationName %></td>
+        <td><form method='POST' action="/pins/<%= p.id%>?_method=DELETE"><input type="submit" value="X"></form></td>
     </tr>
 
 

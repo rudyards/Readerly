@@ -8,7 +8,8 @@ const booksRoot = 'https://www.googleapis.com/books/v1/volumes?q='
 module.exports = {
     index,
     new: newPin,
-    create
+    create,
+    delete: deletePin
 }
 
 function index(req, res){
@@ -67,4 +68,14 @@ function create(req, res){
                 });
         });
 
+}
+
+function deletePin(req, res){
+    console.log(req.params.id)
+    Pin.findByIdAndDelete(req.params.id, function(err, pin){
+        pin.save(function(err){
+            console.log("Successfully deleted");
+            res.redirect('/pins')
+        })
+    });
 }

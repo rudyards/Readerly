@@ -11,6 +11,7 @@ const goodreadsRoot = 'https://www.goodreads.com/search/index.xml?'
 router.get('/new', pinsCtrl.new);
 router.post('/create', pinsCtrl.create);
 router.get('/', pinsCtrl.index);
+router.delete('/:id', pinsCtrl.delete);
 
 
 module.exports = router;
