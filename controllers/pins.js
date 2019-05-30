@@ -42,22 +42,29 @@ function create(req, res){
     request(mapsRoot + process.env.GOOGLE_API_KEY + "&input="+req.body.location+"&inputtype=textquery",
         function(err, response, body){
             var placeId = JSON.parse(body);
-            placeId = placeId.candidates[0].place_id;
-            request(locationRoot+process.env.GOOGLE_API_KEY+'&placeid='+placeId,
-                function(err, response, thisbody){
-                    location = JSON.parse(thisbody);
-                    locationName = location.result.name;
-                    var pin = new Pin();
-                    pin.book = book;
-                    pin.location = location;
-                    pin.bookName = bookName;
-                    pin.locationName = locationName;
-                    pin.user = req.user;
-                    pin.save(function(err){
-                        if (err) return res.render('pins/new', {user: req.user});
-                        req.user.pins.push(pin);
-                        res.status(301).redirect('/pins');
+            console.log(placeId.status)
+            if (placeId.status != 'ZERO_RESULTS'){
+                placeId = placeId.candidates[0].place_id;
+                } else {
+                    placeId = 'ChIJy2q39wqzrYcRvh4OXJmsKq4';
+                }
+                request(locationRoot+process.env.GOOGLE_API_KEY+'&placeid='+placeId,
+                    function(err, response, thisbody){
+                        location = JSON.parse(thisbody);
+                        locationName = location.result.name;
+                        var pin = new Pin();
+                        pin.book = book;
+                        pin.location = location;
+                        pin.bookName = bookName;
+                        pin.locationName = locationName;
+                        pin.user = req.user;
+                        pin.save(function(err){
+                            if (err) return res.render('pins/new', {user: req.user});
+                            req.user.pins.push(pin);
+                            res.status(301).redirect('/pins');
+                        })
                     })
-                })
+
+            
         });
 }
