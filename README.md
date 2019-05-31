@@ -3,7 +3,7 @@
 ## Basic Info
 Readerly is an app designed to help you track memories of reading. The actual app's functionality is very simple: users can add pins, which contain the book that they read and where they red it, to their account. Those pins are stored in a list, and the most recent pin placed is the center of the map on the homepage for that user. The app is designed such that adding additional features (such as the ability to look at other user's profiles, or have the user record a specific page they are on for each pin) will be very easy.
 
-##Walkthrough
+## Walkthrough
 
 
 ![](https://i.imgur.com/25B1Nrz.jpg)
