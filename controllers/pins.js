@@ -35,6 +35,11 @@ function create(req, res){
     var bookName;
     var location;
     var locationName;
+    if (req.body.pagesRead){
+        var pagesRead = req.body.pagesRead;
+    } else {
+        var pagesRead;
+    }
     request(booksRoot + req.body.book, 
         function(err, response, body){
             book = JSON.parse(body);
@@ -56,6 +61,7 @@ function create(req, res){
                                 pin.location = location;
                                 pin.bookName = bookName;
                                 pin.locationName = locationName;
+                                pin.pagesRead = pagesRead;
                                 pin.user = req.user;
                                 pin.save(function(err){
                                     if (err) return res.render('pins/new', {user: req.user});

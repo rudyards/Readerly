@@ -8,6 +8,7 @@ var pinSchema = new Schema({
     bookName: String,
     location: Object,
     locationName: String,
+    pagesRead: String,
     user: {type: Schema.Types.ObjectId, ref: 'User'}
 }, {
     timestamps: true

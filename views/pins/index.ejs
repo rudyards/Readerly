@@ -5,6 +5,7 @@
         <tr>
             <th>Book</th>
             <th>Location</th>
+            <th>Page Count</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -12,6 +13,11 @@
     <tr>
         <td><%= p.bookName %></td>
         <td><%= p.locationName %></td>
+        <td>
+        <% if (p.pagesRead) { %>
+        <%= p.pagesRead %>/ <%= p.book.items[0].volumeInfo.pageCount %>
+        <% } %> 
+        </td>
         <td><form method='POST' action="/pins/<%= p.id%>?_method=DELETE"><input type="submit" value="X"></form></td>
     </tr>
 
